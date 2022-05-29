@@ -27,8 +27,9 @@ const TodoRow: FC<TodoRowProps> = ({ todos, marked }) => {
           checked={done}
           onChange={mark}
         ></input>
-        <h1 className="p-2 font-black text-xl">{title}</h1>
-
+        <h1 className={cn("p-3 decoration-double font-black text-xl", { "line-through": done })}>
+          {title}
+        </h1>
         <AiFillDelete onClick={todoDelete}></AiFillDelete>
       </div>
     </>

@@ -57,7 +57,6 @@ const AddTodoPage: FC<AddTodoPageProps> = (props) => {
           showToDo={showToDo}
           showTodoCreateForm={showTodoCreateForm}
         />
-
         <H3 className="mt-4 mb-2">Things Done</H3>
         <CompleteTodoList marked={marked}></CompleteTodoList>
       </div>

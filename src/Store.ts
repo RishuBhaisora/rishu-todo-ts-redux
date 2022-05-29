@@ -1,25 +1,19 @@
 import { createStore, Reducer } from "redux";
-import {
-  TODO_ADDED,
-  TODO_MARKED,
- 
-  TODO_DELETE,
-} from "./Actions";
+import { TODO_ADDED, TODO_MARKED, TODO_DELETE } from "./Actions";
 import { todo } from "./models/todo";
 
 let currentSavedState;
 const value = localStorage.getItem("currentSavedState");
-if(typeof value === "string") {
- currentSavedState= JSON.parse(value);
-  }
-
+if (typeof value === "string") {
+  currentSavedState = JSON.parse(value);
+}
 
 export type State = {
   todos: todo[];
 };
 
 const initialState: State = {
-  todos: currentSavedState.todos||[]
+  todos: currentSavedState.todos || [],
 };
 
 const reducer: Reducer<State> = (currentState = initialState, action) => {
@@ -50,7 +44,7 @@ const reducer: Reducer<State> = (currentState = initialState, action) => {
       );
       return { ...currentState, todos: newTodoArray };
     }
-    
+
     case TODO_DELETE: {
       const newTodoArray = currentState.todos.filter(
         (t) => t.title !== action.payload

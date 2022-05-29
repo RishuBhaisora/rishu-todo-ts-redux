@@ -1,1 +1,1 @@
- export type todo={id:any,title:string,done:boolean}
+export type todo = { id: any; title: string; done: boolean };

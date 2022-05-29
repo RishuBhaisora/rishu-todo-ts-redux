@@ -1,24 +1,23 @@
 import { FC, memo } from "react";
 import { todo } from "../models/todo";
 import { AiFillDelete } from "react-icons/ai";
-import cn from "classnames"
+import cn from "classnames";
 import { useDispatch } from "react-redux";
 import { TODO_DELETE } from "../Actions";
 
 type TodoRowProps = {
   todos: todo;
-}&{marked :(title:string)=>void} ;
+} & { marked: (title: string) => void };
 
-const TodoRow: FC<TodoRowProps> = ({ todos ,marked}) => {
-  
+const TodoRow: FC<TodoRowProps> = ({ todos, marked }) => {
   const { id, title, done } = todos;
-  const mark =()=>{
-   marked(title);
-  } 
+  const mark = () => {
+    marked(title);
+  };
   const dispatch = useDispatch();
-  const todoDelete=()=>{
-    dispatch({ type: TODO_DELETE ,payload:title});
-  }
+  const todoDelete = () => {
+    dispatch({ type: TODO_DELETE, payload: title });
+  };
   return (
     <>
       <div className={cn(" space-x-2 flex items-center ")}>

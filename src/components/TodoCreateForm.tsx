@@ -5,7 +5,7 @@ type TodoCreateFormProps = {
   showTodoCreateForm: boolean;
   toggleForm: () => void;
   input: string;
-  inputValue: (a:any) => void;
+  inputValue: (a: any) => void;
   showToDo: () => void;
 };
 

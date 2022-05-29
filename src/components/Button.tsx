@@ -1,6 +1,4 @@
-
-
-const Button = (props:any) => {
+const Button = (props: any) => {
   let themeClasses = "bg-yellow-400 rounded-md text-white text-xl";
   if (props.theme === "secondry") {
     themeClasses = " bg-green-400 rounded-md text-white ";

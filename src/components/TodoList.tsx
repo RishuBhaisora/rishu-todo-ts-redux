@@ -7,9 +7,9 @@ import TodoRow from "./TodoRow";
 
 type TodoListProps = {
   todos: todo[];
-}& {marked :(title:string)=>void}
+} & { marked: (title: string) => void };
 
-const TodoList: FC<TodoListProps> = ({ todos ,marked }) => {
+const TodoList: FC<TodoListProps> = ({ todos, marked }) => {
   return (
     <>
       <div>
@@ -23,14 +23,14 @@ const TodoList: FC<TodoListProps> = ({ todos ,marked }) => {
 
 TodoList.defaultProps = {};
 
-const incompleteMapper=(s:State)=>{
-  return {todos:todoSelector(s) }
-}
+const incompleteMapper = (s: State) => {
+  return { todos: todoSelector(s) };
+};
 const completeMapper = (s: State) => {
   return { todos: doneSelector(s) };
 };
 
-export const IncompleteTodoList =connect(incompleteMapper)(TodoList)
+export const IncompleteTodoList = connect(incompleteMapper)(TodoList);
 export const CompleteTodoList = connect(completeMapper)(TodoList);
 
 export default memo(TodoList);

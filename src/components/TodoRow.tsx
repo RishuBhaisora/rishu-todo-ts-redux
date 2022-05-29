@@ -23,7 +23,7 @@ const TodoRow: FC<TodoRowProps> = ({ todos ,marked}) => {
     <>
       <div className={cn(" space-x-2 flex items-center ")}>
         <input
-          className="h-5 w-5 checked:!bg-yellow-500"
+          className="h-5 w-5  accent-yellow-400"
           type="checkbox"
           checked={done}
           onChange={mark}

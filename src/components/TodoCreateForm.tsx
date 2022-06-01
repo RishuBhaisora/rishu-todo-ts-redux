@@ -1,21 +1,45 @@
-import { FC, memo } from "react";
+import { ChangeEvent, FC, memo, useState } from "react";
 import Button from "./Button";
+import { connect } from "react-redux";
+import { doneSelector, todoSelector } from "../Selectors";
+import { todo } from "../models/todo";
+import { todoAddedAction } from "../Actions";
+import { State } from "../Store";
 
 type TodoCreateFormProps = {
-  showTodoCreateForm: boolean;
-  toggleForm: () => void;
-  input: string;
-  inputValue: (a: any) => void;
-  showToDo: () => void;
+  toDoList: todo[];
+  doneList: todo[];
+  addTodo: (payLoad: todo) => void;
 };
 
 const TodoCreateForm: FC<TodoCreateFormProps> = ({
-  showTodoCreateForm,
-  toggleForm,
-  input,
-  inputValue,
-  showToDo,
+  addTodo,
+  toDoList,
+  doneList,
 }) => {
+  const [input, changeInput] = useState("");
+  const [showTodoCreateForm, updateTodoCreateForm] = useState(true);
+
+  let done: string;
+  let todo: string;
+  doneList.map((t: todo) => (done = t.title));
+  toDoList.map((t: todo) => (todo = t.title));
+
+  const toDoAdd = () => {
+    if (done !== input && todo !== input) {
+      if (input) {
+        addTodo({ id: input, title: input, done: false });
+        updateTodoCreateForm(!showTodoCreateForm);
+      }
+    }
+  };
+
+  const inputValue = (props:ChangeEvent<HTMLInputElement>) => {
+    changeInput(props.target.value);
+  };
+  const toggleForm = () => {
+    updateTodoCreateForm(!showTodoCreateForm);
+  };
   return (
     <>
       {showTodoCreateForm && (
@@ -38,7 +62,7 @@ const TodoCreateForm: FC<TodoCreateFormProps> = ({
             ></input>
           </div>
           <div className="flex space-x-2 ">
-            <Button onClick={showToDo} input="Save"></Button>
+            <Button onClick={toDoAdd} input="Save"></Button>
             <Button onClick={toggleForm} input="Cancel" theme="fourth"></Button>
           </div>
         </div>
@@ -48,5 +72,12 @@ const TodoCreateForm: FC<TodoCreateFormProps> = ({
 };
 
 TodoCreateForm.defaultProps = {};
+const listMapper = (s: State) => {
+  return { toDoList: todoSelector(s), doneList: doneSelector(s) };
+};
 
-export default memo(TodoCreateForm);
+const todoAddMapper = {
+  addTodo: todoAddedAction,
+};
+
+export default connect(listMapper, todoAddMapper)(memo(TodoCreateForm));

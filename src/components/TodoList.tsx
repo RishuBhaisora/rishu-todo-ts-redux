@@ -1,5 +1,6 @@
 import { FC, memo } from "react";
 import { connect } from "react-redux";
+import { todoMarkedAction } from "../Actions";
 import { todo } from "../models/todo";
 import { doneSelector, todoSelector } from "../Selectors";
 import { State } from "../Store";
@@ -29,8 +30,11 @@ const incompleteMapper = (s: State) => {
 const completeMapper = (s: State) => {
   return { todos: doneSelector(s) };
 };
+const markedMapper = {
+ marked:todoMarkedAction
+};
 
-export const IncompleteTodoList = connect(incompleteMapper)(TodoList);
-export const CompleteTodoList = connect(completeMapper)(TodoList);
+export const IncompleteTodoList = connect(incompleteMapper, markedMapper)(TodoList);
+export const CompleteTodoList = connect(completeMapper, markedMapper)(TodoList);
 
 export default memo(TodoList);

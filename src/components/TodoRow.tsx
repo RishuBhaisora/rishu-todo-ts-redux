@@ -2,22 +2,25 @@ import { FC, memo } from "react";
 import { todo } from "../models/todo";
 import { AiFillDelete } from "react-icons/ai";
 import cn from "classnames";
-import { useDispatch } from "react-redux";
-import { TODO_DELETE } from "../Actions";
+import { connect} from "react-redux";
+import { todoDeleteAction} from "../Actions";
 
 type TodoRowProps = {
   todos: todo;
-} & { marked: (title: string) => void };
+  marked: (title: string) => void;
+  todoDelete:(title:string)=>{} 
+};
 
-const TodoRow: FC<TodoRowProps> = ({ todos, marked }) => {
-  const { id, title, done } = todos;
+const TodoRow: FC<TodoRowProps> = ({ todos, marked,todoDelete }) => {
+  const {  title, done } = todos;
   const mark = () => {
     marked(title);
   };
-  const dispatch = useDispatch();
-  const todoDelete = () => {
-    dispatch({ type: TODO_DELETE, payload: title });
-  };
+  
+  const deleteTodo = () => {todoDelete(title)}
+
+
+
   return (
     <>
       <div className={cn(" space-x-2 flex items-center ")}>
@@ -27,15 +30,22 @@ const TodoRow: FC<TodoRowProps> = ({ todos, marked }) => {
           checked={done}
           onChange={mark}
         ></input>
-        <h1 className={cn("p-3 decoration-double font-black text-xl", { "line-through": done })}>
+        <h1
+          className={cn("p-3 decoration-double font-black text-xl", {
+            "line-through": done,
+          })}
+        >
           {title}
         </h1>
-        <AiFillDelete onClick={todoDelete}></AiFillDelete>
+        <AiFillDelete onClick={deleteTodo}></AiFillDelete>
       </div>
     </>
   );
 };
 
 TodoRow.defaultProps = {};
+const deleteMapper={
+  todoDelete:todoDeleteAction
+}
 
-export default memo(TodoRow);
+export default connect(undefined,deleteMapper)(memo(TodoRow));

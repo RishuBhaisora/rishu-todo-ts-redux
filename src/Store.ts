@@ -60,5 +60,8 @@ const reducer: Reducer<State> = (currentState = initialState, action) => {
   }
 };
 
-const Store = createStore(reducer);
+const Store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 export default Store;

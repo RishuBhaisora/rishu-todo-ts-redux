@@ -7,14 +7,14 @@ import { todoDeleteAction} from "../Actions";
 
 type TodoRowProps = {
   todos: todo;
-  marked: (title: string) => void;
+  marked: (id: string,done:boolean) => void;
   todoDelete:(title:string)=>{} 
 };
 
 const TodoRow: FC<TodoRowProps> = ({ todos, marked,todoDelete }) => {
   const {  title, done } = todos;
   const mark = () => {
-    marked(title);
+    marked(title,!done);
   };
   
   const deleteTodo = () => {todoDelete(title)}

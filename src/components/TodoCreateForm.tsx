@@ -25,20 +25,23 @@ const TodoCreateForm: FC<TodoCreateFormProps> = ({
   doneList.map((t: todo) => (done = t.title));
   toDoList.map((t: todo) => (todo = t.title));
 
-  const toDoAdd = () => {
+  const toDoAdd = (event: ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (done !== input && todo !== input) {
       if (input) {
         addTodo({ id: input, title: input, done: false });
         updateTodoCreateForm(!showTodoCreateForm);
+        changeInput("");
       }
     }
   };
 
-  const inputValue = (props:ChangeEvent<HTMLInputElement>) => {
+  const inputValue = (props: ChangeEvent<HTMLInputElement>) => {
     changeInput(props.target.value);
   };
   const toggleForm = () => {
     updateTodoCreateForm(!showTodoCreateForm);
+    changeInput("");
   };
   return (
     <>
@@ -51,20 +54,27 @@ const TodoCreateForm: FC<TodoCreateFormProps> = ({
       )}
       {!showTodoCreateForm && (
         <div className="flex flex-col m-4 px-4 py-1 border-2 max-w-screen-md space-y-4 rounded-md ">
-          <div className="space-y-4">
-            <h1 className="font-bold text-xl"> Create a todo</h1>
+          <form onSubmit={toDoAdd}>
+            <div className="space-y-4">
+              <h1 className="font-bold text-xl"> Create a todo</h1>
 
-            <input
-              value={input}
-              placeholder="Write Things ToDo"
-              onChange={inputValue}
-              className="border-2 max-w-screen-md  p-2 rounded-md "
-            ></input>
-          </div>
-          <div className="flex space-x-2 ">
-            <Button onClick={toDoAdd} input="Save"></Button>
-            <Button onClick={toggleForm} input="Cancel" theme="fourth"></Button>
-          </div>
+              <input
+                value={input}
+                placeholder="Write Things ToDo"
+                onChange={inputValue}
+                className="border-2 max-w-screen-md  p-2 rounded-md "
+              ></input>
+            </div>
+            <div className="pt-4 flex space-x-2 ">
+              <Button type="submit" input="Save"></Button>
+
+              <Button
+                onClick={toggleForm}
+                input="Cancel"
+                theme="fourth"
+              ></Button>
+            </div>
+          </form>
         </div>
       )}
     </>

@@ -8,7 +8,7 @@ import TodoRow from "./TodoRow";
 
 type TodoListProps = {
   todos: todo[];
-} & { marked: (title: string) => void };
+ marked: (title:string,done:boolean) => void };
 
 const TodoList: FC<TodoListProps> = ({ todos, marked }) => {
   return (

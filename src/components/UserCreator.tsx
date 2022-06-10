@@ -2,7 +2,6 @@ import { ChangeEvent, FC, memo, useState } from "react";
 import Button from "./Button";
 import { connect } from "react-redux";
 import { user } from "../models/user";
-import { State } from "../Store";
 import { userAddedAction } from "../Actions/user";
 
 type UserCreateFormProps = {

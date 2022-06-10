@@ -9,7 +9,8 @@ import TodoRow from "./TodoRow";
 
 type TodoListProps = {
   todos: todo[];
- marked: (title:string,done:boolean) => void };
+  marked: (title: string, done: boolean) => void;
+};
 
 const TodoList: FC<TodoListProps> = ({ todos, marked }) => {
   return (
@@ -32,10 +33,13 @@ const completeMapper = (s: State) => {
   return { todos: doneSelector(s) };
 };
 const markedMapper = {
- marked:todoMarkedAction
+  marked: todoMarkedAction,
 };
 
-export const IncompleteTodoList = connect(incompleteMapper, markedMapper)(TodoList);
+export const IncompleteTodoList = connect(
+  incompleteMapper,
+  markedMapper
+)(TodoList);
 export const CompleteTodoList = connect(completeMapper, markedMapper)(TodoList);
 
 export default memo(TodoList);

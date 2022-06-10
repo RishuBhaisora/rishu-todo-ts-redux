@@ -47,8 +47,8 @@ export const todoReducer: Reducer<todoStateType> = (
 
       const newobj = convertArrayToObject(newTodo);
 
-      localStorage.setItem("currentSavedTodo", JSON.stringify( newobj ));
-      return  newobj ;
+      localStorage.setItem("currentSavedTodo", JSON.stringify(newobj));
+      return newobj;
     }
     default: {
       return todoState;

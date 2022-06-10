@@ -6,19 +6,22 @@ import { State } from "../Store";
 import UserCreator from "./UserCreator";
 
 type UserPageProps = {
-  userList:user[]
+  userList: user[];
 };
 
-const UserPage: FC<UserPageProps> = ({userList}) => {
+const UserPage: FC<UserPageProps> = ({ userList }) => {
   return (
     <div className="bg-green-800 h-screen w-sceen">
       <ul className="text-xl font-bold list-decimal p-5 pl-10 ">
         {userList.map((e) => (
-          <li className="bg-slate-400 rounded-md mt-2 p-2" key={e.id}> {e.name}</li>
+          <li className="bg-slate-400 rounded-md mt-2 p-2" key={e.id}>
+            {" "}
+            {e.name}
+          </li>
         ))}
       </ul>
-      
-       <UserCreator></UserCreator>
+
+      <UserCreator></UserCreator>
     </div>
   );
 };

@@ -5,11 +5,11 @@ import { State } from "../Store";
 import { Link, Outlet } from "react-router-dom";
 
 type HeaderProps = {
-todoCount:number,
-doneCount:number
+  todoCount: number;
+  doneCount: number;
 };
 
-const Header: FC<HeaderProps> = ({todoCount,doneCount}) => {
+const Header: FC<HeaderProps> = ({ todoCount, doneCount }) => {
   return (
     <>
       <div className="border text-2xl font-black p-2 flex space-x-6">
@@ -17,9 +17,13 @@ const Header: FC<HeaderProps> = ({todoCount,doneCount}) => {
         <h1 className="text-xl text-red-600">Todo Count:{todoCount}</h1>
         <h1 className="text-xl text-green-600">Done Count: {doneCount}</h1>
       </div>
-      <div className="text-xl font-black space-x-4 p-2 border underline " >
-        <Link to="todoPage">TodoPage</Link>
-        <Link to="userPage">UserPage</Link>
+      <div className="text-xl font-black space-x-4 p-2 border  ">
+        <Link className="hover:underline hover:text-green-600" to="todoPage">
+          TodoPage
+        </Link>
+        <Link className="hover:underline hover:text-green-600" to="userPage">
+          UserPage
+        </Link>
       </div>
       <Outlet></Outlet>
     </>
@@ -28,8 +32,8 @@ const Header: FC<HeaderProps> = ({todoCount,doneCount}) => {
 
 Header.defaultProps = {};
 
-const countMapper=(s:State)=>{
-return { todoCount :todoCountSelector(s),doneCount:doneCountSelector(s)}
-}
+const countMapper = (s: State) => {
+  return { todoCount: todoCountSelector(s), doneCount: doneCountSelector(s) };
+};
 
 export default connect(countMapper)(memo(Header));

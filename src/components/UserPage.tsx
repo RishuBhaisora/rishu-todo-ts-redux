@@ -15,7 +15,7 @@ const UserPage: FC<UserPageProps> = ({ userList }) => {
       <div className="pl-10 pt-4">
         <UserCreator></UserCreator>
       </div>
-      <ul className="text-xl font-bold  list-outside p-5 pl-10 ">
+      <ul className="text-xl font-bold max-w-screen-md list-decimal p-5 pl-10 ">
         {userList.map((e) => (
           <li
             className="bg-slate-400 text-white rounded-md mt-2 p-2"

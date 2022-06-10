@@ -1,4 +1,4 @@
-import { todo } from "./models/todo";
+import { todo } from "../models/todo";
 
 export const TODO_ADDED = "ADD_TODO";
 export const TODO_MARKED = "TODO_MARKED";

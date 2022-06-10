@@ -1,10 +1,11 @@
 import { ChangeEvent, FC, memo, useState } from "react";
 import Button from "./Button";
 import { connect } from "react-redux";
-import { doneSelector, todoSelector } from "../Selectors";
+import { doneSelector, todoSelector } from "../Selectors/todo";
 import { todo } from "../models/todo";
-import { todoAddedAction } from "../Actions";
+
 import { State } from "../Store";
+import { todoAddedAction } from "../Actions/todo";
 
 type TodoCreateFormProps = {
   toDoList: todo[];

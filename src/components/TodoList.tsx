@@ -1,8 +1,9 @@
 import { FC, memo } from "react";
 import { connect } from "react-redux";
-import { todoMarkedAction } from "../Actions";
+import { todoMarkedAction } from "../Actions/todo";
+
 import { todo } from "../models/todo";
-import { doneSelector, todoSelector } from "../Selectors";
+import { doneSelector, todoSelector } from "../Selectors/todo";
 import { State } from "../Store";
 import TodoRow from "./TodoRow";
 

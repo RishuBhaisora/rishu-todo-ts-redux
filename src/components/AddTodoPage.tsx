@@ -9,9 +9,10 @@ const AddTodoPage: FC<AddTodoPageProps> = () => {
   return (
     <>
       <div className="p-5">
+        <h1 className=" text-4xl font-black p-2">Things To Get Done</h1>
         <H3 className="mb-2">Things To Do</H3>
         <IncompleteTodoList></IncompleteTodoList>
-        <TodoCreateForm/>
+        <TodoCreateForm />
         <H3 className="mt-4 mb-2">Things Done</H3>
         <CompleteTodoList></CompleteTodoList>
       </div>

@@ -3,7 +3,7 @@ import { todo } from "../models/todo";
 import { AiFillDelete } from "react-icons/ai";
 import cn from "classnames";
 import { connect} from "react-redux";
-import { todoDeleteAction} from "../Actions";
+import { todoDeleteAction } from "../Actions/todo";
 
 type TodoRowProps = {
   todos: todo;

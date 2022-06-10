@@ -1,4 +1,5 @@
-import { State } from "./Store";
+
+import { State } from "../Store";
 
 export const doneSelector = (s: State) =>
   Object.keys(s.todos)

@@ -8,7 +8,7 @@ const Button = (props: any) => {
   }
 
   if (props.theme === "fourth") {
-    themeClasses = " bg-white rounded-md  ";
+    themeClasses = " bg-white rounded-md text-xl ";
   }
 
   return (

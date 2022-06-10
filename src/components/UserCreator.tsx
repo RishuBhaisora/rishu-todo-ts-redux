@@ -5,24 +5,19 @@ import { user } from "../models/user";
 import { State } from "../Store";
 import { userAddedAction } from "../Actions/user";
 
-
 type UserCreateFormProps = {
   addUser: (payLoad: user) => void;
 };
 
-const UserCreateForm: FC<UserCreateFormProps> = ({
-  addUser,
-}) => {
+const UserCreateForm: FC<UserCreateFormProps> = ({ addUser }) => {
   const [input, changeInput] = useState("");
   const [showUserCreateForm, updateUserCreateForm] = useState(true);
-
 
   const userAdd = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (input) {
       addUser({ id: input, name: input });
-      updateUserCreateForm(!showUserCreateForm);
       changeInput("");
     }
   };
@@ -30,26 +25,24 @@ const UserCreateForm: FC<UserCreateFormProps> = ({
   const inputValue = (props: ChangeEvent<HTMLInputElement>) => {
     changeInput(props.target.value);
   };
-  const toggleForm = () => {
-    updateUserCreateForm(!showUserCreateForm);
+  const openForm = () => {
+    updateUserCreateForm(false);
+    changeInput("");
+  };
+  const closeForm = () => {
+    updateUserCreateForm(true);
     changeInput("");
   };
   return (
     <>
       {showUserCreateForm && (
-        <div className="pl-10 ">
-          <Button
-            onClick={toggleForm}
-            theme="third"
-            input="+ Add a User"
-          ></Button>
-        </div>
+        <Button onClick={openForm} theme="s" input="+ Add a User"></Button>
       )}
       {!showUserCreateForm && (
         <div className="flex flex-col  p-5 border-2 max-w-screen-md space-y-4 rounded-md ">
           <form onSubmit={userAdd}>
             <div className="space-y-4">
-              <h1 className="font-bold text-xl"> Create a User</h1>
+              <h1 className="font-bold text-white text-xl"> Create a User</h1>
 
               <input
                 value={input}
@@ -62,8 +55,8 @@ const UserCreateForm: FC<UserCreateFormProps> = ({
               <Button type="submit" input="Save"></Button>
 
               <Button
-                onClick={toggleForm}
-                input="Cancel"
+                onClick={closeForm}
+                input="Close"
                 theme="fourth"
               ></Button>
             </div>
@@ -75,7 +68,6 @@ const UserCreateForm: FC<UserCreateFormProps> = ({
 };
 
 UserCreateForm.defaultProps = {};
-
 
 const userAddMapper = {
   addUser: userAddedAction,

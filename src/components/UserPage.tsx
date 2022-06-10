@@ -12,16 +12,19 @@ type UserPageProps = {
 const UserPage: FC<UserPageProps> = ({ userList }) => {
   return (
     <div className="bg-green-800 h-screen w-sceen">
-      <ul className="text-xl font-bold list-decimal p-5 pl-10 ">
+      <div className="pl-10 pt-4">
+        <UserCreator></UserCreator>
+      </div>
+      <ul className="text-xl font-bold  list-outside p-5 pl-10 ">
         {userList.map((e) => (
-          <li className="bg-slate-400 rounded-md mt-2 p-2" key={e.id}>
-            {" "}
+          <li
+            className="bg-slate-400 text-white rounded-md mt-2 p-2"
+            key={e.id}
+          >
             {e.name}
           </li>
         ))}
       </ul>
-
-      <UserCreator></UserCreator>
     </div>
   );
 };

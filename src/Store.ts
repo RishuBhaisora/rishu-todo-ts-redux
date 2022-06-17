@@ -1,7 +1,8 @@
 import _default from "react-redux/es/components/connect";
-import { createStore, Reducer } from "redux";
+import { applyMiddleware, createStore, Reducer } from "redux";
 import { todo } from "./models/todo";
 import { user } from "./models/user";
+import { rootSaga, sagaMiddleware } from "./Sagas";
 import { initialTodoState, todoReducer } from "./State/todo";
 import { initialUserState, userReducer } from "./State/user";
 
@@ -22,6 +23,9 @@ const reducer: Reducer<State> = (currentState = initialState, action) => {
 };
 const Store = createStore(
   reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  applyMiddleware(sagaMiddleware)
+  // ,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
+sagaMiddleware.run(rootSaga);
+
 export default Store;

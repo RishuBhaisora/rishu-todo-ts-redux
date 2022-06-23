@@ -1,5 +1,6 @@
 const convertArrayToObject = (array: any[], key = "id") => {
   const initialValue = {};
+
   return array.reduce((obj, item) => {
     return {
       ...obj,
@@ -7,4 +8,4 @@ const convertArrayToObject = (array: any[], key = "id") => {
     };
   }, initialValue);
 };
-export default convertArrayToObject
+export default convertArrayToObject;

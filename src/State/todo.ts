@@ -15,6 +15,7 @@ export const todoReducer: Reducer<todoStateType> = (
   todoState = initialTodoState,
   action
 ) => {
+  
   switch (action.type) {
     case TODO_ADDED: {
       const newTodo = {

@@ -1,7 +1,8 @@
 import { getStudents } from "../api";
-import { call } from "redux-saga/effects";
+import { call, put } from "redux-saga/effects";
+import { studentsFetched } from "../Actions/students";
 
-export function* getStudentsSaga(): Generator {
+export function* getStudentsSaga(): Generator<any, any, any> {
   const data = yield call(getStudents);
-  console.log(data);
+  yield put(studentsFetched(data));
 }

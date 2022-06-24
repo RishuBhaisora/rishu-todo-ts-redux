@@ -1,5 +1,6 @@
 import _default from "react-redux/es/components/connect";
 import { applyMiddleware, createStore, Reducer } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 import { students } from "./models/students";
 import { todo } from "./models/todo";
 import { user } from "./models/user";
@@ -32,7 +33,7 @@ const reducer: Reducer<State> = (currentState = initialState, action) => {
 };
 const Store = createStore(
   reducer,
-  applyMiddleware(sagaMiddleware)
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
   // ,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 sagaMiddleware.run(rootSaga);

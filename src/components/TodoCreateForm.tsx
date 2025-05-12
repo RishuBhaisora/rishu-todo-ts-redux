@@ -5,12 +5,12 @@ import { doneSelector, todoSelector } from "../Selectors/todo";
 import { todo } from "../models/todo";
 
 import { State } from "../Store";
-import { todoAddedAction } from "../Actions/todo";
+import { addTodoApiAction, fetchTodosAction } from "../Actions/todo";
 
 type TodoCreateFormProps = {
   toDoList: todo[];
   doneList: todo[];
-  addTodo: (payLoad: todo) => void;
+  addTodo: (title: string) => void;
 };
 
 const TodoCreateForm: FC<TodoCreateFormProps> = ({
@@ -28,12 +28,10 @@ const TodoCreateForm: FC<TodoCreateFormProps> = ({
 
   const toDoAdd = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (done !== input && todo !== input) {
-      if (input) {
-        addTodo({ id: input, title: input, done: false });
-        updateTodoCreateForm(!showTodoCreateForm);
-        changeInput("");
-      }
+    if (input) {
+      addTodo(input);
+      updateTodoCreateForm(!showTodoCreateForm);
+      changeInput("");
     }
   };
 
@@ -88,7 +86,7 @@ const listMapper = (s: State) => {
 };
 
 const todoAddMapper = {
-  addTodo: todoAddedAction,
+  addTodo: addTodoApiAction,
 };
 
 export default connect(listMapper, todoAddMapper)(memo(TodoCreateForm));

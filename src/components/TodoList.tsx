@@ -1,6 +1,6 @@
-import { FC, memo } from "react";
-import { connect } from "react-redux";
-import { todoMarkedAction } from "../Actions/todo";
+import { FC, memo, useEffect, useState } from "react";
+import { connect, useDispatch } from "react-redux";
+import { markTodoApiAction, fetchTodosAction } from "../Actions/todo";
 
 import { todo } from "../models/todo";
 import { doneSelector, todoSelector } from "../Selectors/todo";
@@ -9,22 +9,21 @@ import TodoRow from "./TodoRow";
 
 type TodoListProps = {
   todos: todo[];
-  marked: (title: string, done: boolean) => void;
+  marked: (todo: todo) => void;
 };
 
 const TodoList: FC<TodoListProps> = ({ todos, marked }) => {
+
   return (
     <>
       <div>
         {todos.map((t) => (
-          <TodoRow marked={marked} key={t.id} todos={t} />
+          <TodoRow marked={marked} key={t._id} todo={t} />
         ))}
       </div>
     </>
   );
 };
-
-TodoList.defaultProps = {};
 
 const incompleteMapper = (s: State) => {
   return { todos: todoSelector(s) };
@@ -33,7 +32,7 @@ const completeMapper = (s: State) => {
   return { todos: doneSelector(s) };
 };
 const markedMapper = {
-  marked: todoMarkedAction,
+  marked: markTodoApiAction,
 };
 
 export const IncompleteTodoList = connect(

@@ -1,1 +1,6 @@
-export type todo = { id: string; title: string; done: boolean };
+export type todo = {
+  _id: string;
+  title: string;
+  done: boolean;
+  userId: string;
+};

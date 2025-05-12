@@ -2,7 +2,9 @@ import { FC, memo } from "react";
 import { connect } from "react-redux";
 import { doneCountSelector, todoCountSelector } from "../Selectors/todo";
 import { State } from "../Store";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authLogout } from "../Actions/auth";
 
 type HeaderProps = {
   todoCount: number;
@@ -10,20 +12,19 @@ type HeaderProps = {
 };
 
 const Header: FC<HeaderProps> = ({ todoCount, doneCount }) => {
+  const dispatch = useDispatch();
   return (
     <>
-      <div className="border text-2xl font-black p-2 flex space-x-6">
+      <div className="flex gap-4 items-center border text-2xl font-black p-2">
         <h1>XTodo</h1>
-        <h1 className="text-xl text-red-600">Todo Count:{todoCount}</h1>
+        <h1 className="text-xl text-red-600">Todo Count: {todoCount}</h1>
         <h1 className="text-xl text-green-600">Done Count: {doneCount}</h1>
-      </div>
-      <div className="text-xl font-black space-x-4 p-2 border  ">
-        <Link className="hover:underline hover:text-green-600" to="todoPage">
-          TodoPage
-        </Link>
-        <Link className="hover:underline hover:text-green-600" to="userPage">
-          UserPage
-        </Link>
+        <button
+          className=" p-2 rounded-md text-white bg-red-600 text-xl font-bold"
+          onClick={() => dispatch(authLogout())}
+        >
+          Logout
+        </button>
       </div>
       <Outlet></Outlet>
     </>

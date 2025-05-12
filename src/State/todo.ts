@@ -1,55 +1,41 @@
-import { TODO_ADDED, TODO_DELETE, TODO_MARKED } from "../Actions/todo";
-import convertArrayToObject from "../ArrayToObjectReducer";
+import {
+  SAVE_TODOS,
+  FETCH_TODOS_ERROR,
+  FETCH_TODOS_LOADING,
+} from "../Actions/todo";
 import { Reducer } from "redux";
 import { todo } from "../models/todo";
 
-const value = localStorage.getItem("currentSavedTodo");
-let currentSavedTodo = value ? JSON.parse(value) : {};
-
-type todoStateType = {
-  [id: string]: todo;
+export type todoStateType = {
+  todos: todo[];
+  loading: boolean;
+  error: string | null;
 };
-export const initialTodoState: todoStateType = currentSavedTodo;
+
+export const initialTodoState: todoStateType = {
+  todos: [],
+  loading: false,
+  error: null,
+};
 
 export const todoReducer: Reducer<todoStateType> = (
   todoState = initialTodoState,
   action
 ) => {
-  
   switch (action.type) {
-    case TODO_ADDED: {
-      const newTodo = {
+    case SAVE_TODOS: {
+      return {
         ...todoState,
-        ...todoState,
-        [action.payload.id]: action.payload,
+        todos: action.payload,
+        loading: false,
+        error: null,
       };
-
-      localStorage.setItem("currentSavedTodo", JSON.stringify(newTodo));
-
-      return newTodo;
     }
-
-    case TODO_MARKED: {
-      const newTodo = {
-        ...todoState,
-        ...todoState,
-        [action.payload.title]: {
-          ...todoState[action.payload.title],
-          done: action.payload.done,
-        },
-      };
-      localStorage.setItem("currentSavedTodo", JSON.stringify(newTodo));
-      return newTodo;
+    case FETCH_TODOS_LOADING: {
+      return { ...todoState, loading: true, error: null };
     }
-    case TODO_DELETE: {
-      const newTodo = Object.keys(todoState)
-        .map((e) => todoState[e])
-        .filter((e) => e.id !== action.payload);
-
-      const newobj = convertArrayToObject(newTodo);
-
-      localStorage.setItem("currentSavedTodo", JSON.stringify(newobj));
-      return newobj;
+    case FETCH_TODOS_ERROR: {
+      return { ...todoState, loading: false, error: action.payload };
     }
     default: {
       return todoState;

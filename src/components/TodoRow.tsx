@@ -2,24 +2,24 @@ import { FC, memo } from "react";
 import { todo } from "../models/todo";
 import { AiFillDelete } from "react-icons/ai";
 import cn from "classnames";
-import { connect} from "react-redux";
-import { todoDeleteAction } from "../Actions/todo";
+import { connect } from "react-redux";
+import { deleteTodoApiAction } from "../Actions/todo";
 
 type TodoRowProps = {
-  todos: todo;
-  marked: (id: string,done:boolean) => void;
-  todoDelete:(title:string)=>{} 
+  todo: todo;
+  marked: (todo: todo) => void;
+  todoDelete: (id: string) => {};
 };
 
-const TodoRow: FC<TodoRowProps> = ({ todos, marked,todoDelete }) => {
-  const {  title, done } = todos;
+const TodoRow: FC<TodoRowProps> = ({ todo, marked, todoDelete }) => {
+  const { _id, title, done } = todo;
   const mark = () => {
-    marked(title,!done);
+    marked(todo);
   };
-  
-  const deleteTodo = () => {todoDelete(title)}
 
-
+  const deleteTodo = () => {
+    todoDelete(_id);
+  };
 
   return (
     <>
@@ -44,8 +44,8 @@ const TodoRow: FC<TodoRowProps> = ({ todos, marked,todoDelete }) => {
 };
 
 TodoRow.defaultProps = {};
-const deleteMapper={
-  todoDelete:todoDeleteAction
-}
+const deleteMapper = {
+  todoDelete: deleteTodoApiAction,
+};
 
-export default connect(undefined,deleteMapper)(memo(TodoRow));
+export default connect(undefined, deleteMapper)(memo(TodoRow));
